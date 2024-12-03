@@ -92,9 +92,6 @@ COPY files/*.sh /
 COPY files/config.ini /opt/factorio/config/config.ini
 COPY --from=rcon-builder /src/rcon /bin/rcon
 
-ARG TOKEN
-RUN echo '{"token": "'$TOKEN'"}' > /factorio/config/server-settings.json
-
 VOLUME /factorio
 EXPOSE $PORT/udp $RCON_PORT/tcp
 ENTRYPOINT ["/docker-entrypoint.sh"]
