@@ -60,6 +60,11 @@ RUN addgroup --system --gid "$PGID" "$GROUP" \
 # version checksum of the archive to download
 ARG VERSION
 ARG SHA256
+# Добавьте ARG для токена
+ARG TOKEN
+
+# Запишите токен в server-settings.json
+RUN echo '{"token": "'"$TOKEN"'"}' > /factorio/config/server-settings.json
 
 LABEL factorio.version=${VERSION}
 
