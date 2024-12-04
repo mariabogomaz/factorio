@@ -26,6 +26,11 @@ if [[ ! -f $CONFIG/server-settings.json ]]; then
   cp /opt/factorio/data/server-settings.example.json "$CONFIG/server-settings.json"
 fi
 
+# Устанавливаем токен, если он передан
+if [[ -n "$TOKEN" ]]; then
+  sed -i 's/"token": ""/"token": "'"${TOKEN}"'"/' "$CONFIG/server-settings.json"
+fi
+
 if [[ ! -f $CONFIG/map-gen-settings.json ]]; then
   cp /opt/factorio/data/map-gen-settings.example.json "$CONFIG/map-gen-settings.json"
 fi
