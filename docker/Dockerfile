@@ -60,11 +60,6 @@ RUN addgroup --system --gid "$PGID" "$GROUP" \
 # version checksum of the archive to download
 ARG VERSION
 ARG SHA256
-# Добавьте ARG для токена
-ARG TOKEN
-
-# Запишите токен в server-settings.json
-RUN echo '{"token": "'"$TOKEN"'"}' > /factorio/config/server-settings.json
 
 LABEL factorio.version=${VERSION}
 
@@ -96,6 +91,11 @@ RUN set -ox pipefail \
 COPY files/*.sh /
 COPY files/config.ini /opt/factorio/config/config.ini
 COPY --from=rcon-builder /src/rcon /bin/rcon
+# Убедитесь, что TOKEN передаётся в контейнер как переменная окружения
+ENV TOKEN=${TOKEN}
+
+# Обновляем поле token в server-settings.json
+RUN sed -i 's/"token": ""/"token": "'"${TOKEN}"'"/' /factorio/config/server-settings.json
 
 VOLUME /factorio
 EXPOSE $PORT/udp $RCON_PORT/tcp
