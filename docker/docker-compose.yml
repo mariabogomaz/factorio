@@ -4,8 +4,6 @@ services:
     build:
       context: .
       args:
-        # Check buildinfo.json for supported versions and SHAs
-        # https://github.com/factoriotools/factorio-docker/blob/master/buildinfo.json
         - VERSION=2.0.23
         - SHA256=e819fc9ad6df061bf9d4bffc91988dd18d0e3982c8b1c22c0525d78bda3ef216
     ports:
@@ -13,16 +11,5 @@ services:
       - "27015:27015/tcp"
     volumes:
       - /opt/factorio:/factorio
-         environment:
-      #      - PUID=1000
-      #      - PGID=1000
-      #      - UPDATE_MODS_ON_START=true
-      #      - USERNAME=FactorioUsername
-           - TOKEN=f48d0c04eb7c67a7c4f22f1a305465
-      #      - PORT=34198
-      #      - PRESET=deathworld
-      #      - ADDR=::1
-#    # Uncomment the following line to enable the use of the host's network stack,
-#    # which may be necessary for some setups like NAS or when using some proxy service like firewall rules.
-#    extra_hosts:
-#      - "host.docker.internal:host-gateway"
+    environment:
+      - TOKEN=f48d0c04eb7c67a7c4f22f1a305465
