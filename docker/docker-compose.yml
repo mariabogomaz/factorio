@@ -13,3 +13,4 @@ services:
       - /opt/factorio:/factorio
     environment:
       - TOKEN=f48d0c04eb7c67a7c4f22f1a305465
+      - UPDATE_MODS_ON_START=true
