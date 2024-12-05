@@ -22,13 +22,24 @@ if [[ ! -f $CONFIG/rconpw ]]; then
 fi
 
 if [[ ! -f $CONFIG/server-settings.json ]]; then
-  # Copy default settings if server-settings.json doesn't exist
-  cp /opt/factorio/data/server-settings.example.json "$CONFIG/server-settings.json"
-fi
-
-# Устанавливаем токен, если он передан
-if [[ -n "$TOKEN" ]]; then
-  sed -i 's/"token": ""/"token": "'"${TOKEN}"'"/' "$CONFIG/server-settings.json"
+  # Генерируем server-settings.json с заданными параметрами
+  cat <<EOF > "$CONFIG/server-settings.json"
+{
+  "name": "My Factorio Server",
+  "description": "A friendly server for everyone.",
+  "tags": ["game", "fun"],
+  "max_players": 10,
+  "visibility": {
+    "public": true,
+    "lan": true
+  },
+  "token": "${TOKEN}",
+  "game_password": "",
+  "require_user_verification": true,
+  "max_upload_in_kilobytes_per_second": 0,
+  "minimum_latency_in_ticks": 0
+}
+EOF
 fi
 
 if [[ ! -f $CONFIG/map-gen-settings.json ]]; then
